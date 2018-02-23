@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Globalization;
+    using Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.Tracing;
     using Microsoft.ApplicationInsights.AspNetCore.Extensions;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -21,12 +22,15 @@
         /// <param name="hostingEnvironment"><see cref="IHostingEnvironment"/> to use for retreiving ContentRootPath</param>
         public DefaultApplicationInsightsServiceConfigureOptions(IHostingEnvironment hostingEnvironment)
         {
+            AspNetCoreEventSource.Instance.Logverbose("DefaultApplicationInsightsServiceConfigureOptions constructor");
             this.hostingEnvironment = hostingEnvironment;
         }
 
         /// <inheritdoc />
         public void Configure(ApplicationInsightsServiceOptions options)
         {
+            AspNetCoreEventSource.Instance.Logverbose("DefaultApplicationInsightsServiceConfigureOptions configure");
+
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(this.hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appsettings.json", true)

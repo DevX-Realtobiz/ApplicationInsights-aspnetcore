@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.AspNetCore;
     using Microsoft.ApplicationInsights.AspNetCore.DiagnosticListeners;
+    using Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.Tracing;
     using Microsoft.ApplicationInsights.AspNetCore.Extensions;
     using Microsoft.ApplicationInsights.AspNetCore.Logging;
     using Microsoft.ApplicationInsights.AspNetCore.TelemetryInitializers;
@@ -23,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
 #if NET451 || NET46
     using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector;
+    using Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.Tracing;
 #endif
 
     /// <summary>
@@ -285,11 +287,15 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="serviceOptions">Telemetry configuration to populate.</param>
         internal static void AddTelemetryConfiguration(IConfiguration config, ApplicationInsightsServiceOptions serviceOptions)
         {
+            AspNetCoreEventSource.Instance.Logverbose("Inside AddTelemetryConfiguration.ServiceOptions.Ikey:" + serviceOptions.InstrumentationKey);
+            
             string instrumentationKey = config[InstrumentationKeyForWebSites];
             if (string.IsNullOrWhiteSpace(instrumentationKey))
             {
-                instrumentationKey = config[InstrumentationKeyFromConfig];
+                instrumentationKey = config[InstrumentationKeyFromConfig];                
             }
+
+            AspNetCoreEventSource.Instance.Logverbose("Ikey From Config:" + config[InstrumentationKeyFromConfig]);
 
             if (!string.IsNullOrWhiteSpace(instrumentationKey))
             {

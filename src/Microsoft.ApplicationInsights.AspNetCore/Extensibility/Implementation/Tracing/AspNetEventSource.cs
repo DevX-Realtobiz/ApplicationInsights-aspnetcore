@@ -128,6 +128,12 @@ namespace Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.
             this.WriteEvent(9, this.ApplicationName);
         }
 
+        [Event(10, Message = "VerboseLog: {0}", Level = EventLevel.Warning)]
+        public void Logverbose(string message, string appDomainName = "Incorrect")
+        {
+            this.WriteEvent(10, message, this.ApplicationName);
+        }
+
         /// <summary>
         /// Keywords for the AspNetEventSource.
         /// </summary>
