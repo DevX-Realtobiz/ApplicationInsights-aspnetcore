@@ -38,15 +38,15 @@ namespace TestAppWebapiCore
                .AddEnvironmentVariables();            
             services.AddApplicationInsightsTelemetry(configBuilder.Build());
 
-            var dep = services.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(DependencyTrackingTelemetryModule));
+            //var dep = services.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(DependencyTrackingTelemetryModule));
 
 
             var telemetryConfiguration =
                         services.BuildServiceProvider().GetService<TelemetryConfiguration>();
-            var builder = telemetryConfiguration.TelemetryProcessorChainBuilder;
-            builder.Use((next) => new MyTelemetryProcessor(next));
-            builder.Build();
-            builder.UseAdaptiveSampling(maxTelemetryItemsPerSecond:10);
+            //var builder = telemetryConfiguration.TelemetryProcessorChainBuilder;
+            //builder.Use((next) => new MyTelemetryProcessor(next));
+            //builder.Build();
+            //builder.UseAdaptiveSampling(maxTelemetryItemsPerSecond:10);
 
             //var configuration = services.AddApplicationInsightsTelemetryProcessor(typeof(MyTelemetryProcessor));
 
@@ -63,7 +63,7 @@ namespace TestAppWebapiCore
 
             app.UseMvc();
 
-
+            /*
             DependencyTrackingTelemetryModule dep;
             var modules = app.ApplicationServices.GetServices<ITelemetryModule>();
             foreach(var module in modules)
@@ -75,7 +75,7 @@ namespace TestAppWebapiCore
                     dep.Initialize(TelemetryConfiguration.Active);                    
                 }
             }
-            
+            */
                 
                 //.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(DependencyTrackingTelemetryModule));
 

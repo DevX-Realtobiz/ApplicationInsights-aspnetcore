@@ -36,6 +36,8 @@ namespace Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.
             }
         }
 
+
+
         /// <summary>
         /// Gets the application name for use in logging events.
         /// </summary>
@@ -132,6 +134,17 @@ namespace Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.
         public void FetchAppIdFailedWithResponseCode(string exception, string appDomainName = "Incorrect")
         {
             this.WriteEvent(10, exception, this.ApplicationName);
+        }
+
+        /// <summary>
+        /// Logs an event for the an exception in the TelemetryInitializerBase Initialize method.
+        /// </summary>
+        /// <param name="errorMessage">The error message to write an event for.</param>
+        /// <param name="appDomainName">An ignored placeholder to make EventSource happy.</param>
+        [Event(11, Message = "{0}", Level = EventLevel.Informational, Keywords = Keywords.Diagnostics)]
+        public void Logverbose(string errorMessage, string appDomainName = "Incorrect")
+        {
+            this.WriteEvent(11, errorMessage, this.ApplicationName);
         }
 
         /// <summary>
