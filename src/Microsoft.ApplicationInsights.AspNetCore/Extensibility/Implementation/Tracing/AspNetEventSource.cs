@@ -128,10 +128,10 @@ namespace Microsoft.ApplicationInsights.AspNetCore.Extensibility.Implementation.
             this.WriteEvent(9, this.ApplicationName);
         }
 
-        [Event(10, Message = "VerboseLog: {0}", Level = EventLevel.Warning)]
-        public void Logverbose(string message, string appDomainName = "Incorrect")
+        [Event(10, Message = "Failed to retrieve App ID for the current application insights resource. Endpoint returned HttpStatusCode: {0}", Level = EventLevel.Warning, Keywords = Keywords.Diagnostics)]
+        public void FetchAppIdFailedWithResponseCode(string exception, string appDomainName = "Incorrect")
         {
-            this.WriteEvent(10, message, this.ApplicationName);
+            this.WriteEvent(10, exception, this.ApplicationName);
         }
 
         /// <summary>
