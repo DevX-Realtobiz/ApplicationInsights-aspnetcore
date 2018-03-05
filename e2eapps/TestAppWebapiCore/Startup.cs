@@ -54,11 +54,12 @@ namespace TestAppWebapiCore
 
             //var dep = app.ApplicationService s.GetService<DependencyTrackingTelemetryModule>()
 
-            services.AddApplicationInsightsTelemetry("ikeypassedasrg");
+             services.AddApplicationInsightsTelemetry("37aac79b-2ec5-47dc-8e76-ce9f33e82217");
+          //  services.AddApplicationInsightsTelemetry();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -80,12 +81,12 @@ namespace TestAppWebapiCore
                 }
             }
             */
-                
-                //.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(DependencyTrackingTelemetryModule));
+
+            //.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(DependencyTrackingTelemetryModule));
 
             //DependencyTrackingTelemetryModule dep = new DependencyTrackingTelemetryModule();
-            
 
+            loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Warning);
             
         }
 

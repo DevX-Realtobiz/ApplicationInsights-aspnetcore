@@ -5,20 +5,32 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace TestAppWebapiCore.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly ILogger _logger;
+        
+        public ValuesController(ILogger<ValuesController> logger)
+        {
+            _logger = logger;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
             var ikey = TelemetryConfiguration.Active.InstrumentationKey;
             var ep = TelemetryConfiguration.Active.TelemetryChannel.EndpointAddress;
+
+            _logger.LogWarning("Logging... Endpoint is ({ep})", ep);
+
+
             HttpClient client = new HttpClient();
-            var res = client.GetStringAsync("https://bing.com").Result;
+                var res = client.GetStringAsync("https://bing.com").Result;
             return new string[] { "value1", "value2", ikey, ep };
         }
 
@@ -26,7 +38,8 @@ namespace TestAppWebapiCore.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            _logger.LogWarning(1001, "Logging... Get called ({id})", id);
+            return "value" + id ;
         }
 
         // POST api/values
