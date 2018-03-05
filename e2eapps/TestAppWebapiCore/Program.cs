@@ -20,7 +20,7 @@ namespace TestAppWebapiCore
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseApplicationInsights()
+                //.UseApplicationInsights("ikeyasarg")
                 .Build();
     }
 }

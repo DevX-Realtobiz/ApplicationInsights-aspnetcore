@@ -32,17 +32,19 @@ namespace TestAppWebapiCore
         {
             services.AddMvc();
 
+            /*
             var configBuilder = new ConfigurationBuilder()
                .SetBasePath(this.HostingEnvironment.ContentRootPath)
                .AddJsonFile("appsettings.json", true)               
                .AddEnvironmentVariables();            
             services.AddApplicationInsightsTelemetry(configBuilder.Build());
+            */
 
             //var dep = services.FirstOrDefault<ServiceDescriptor>(t => t.ImplementationType == typeof(DependencyTrackingTelemetryModule));
 
 
-            var telemetryConfiguration =
-                        services.BuildServiceProvider().GetService<TelemetryConfiguration>();
+            //var telemetryConfiguration =
+            //services.BuildServiceProvider().GetService<TelemetryConfiguration>();
             //var builder = telemetryConfiguration.TelemetryProcessorChainBuilder;
             //builder.Use((next) => new MyTelemetryProcessor(next));
             //builder.Build();
@@ -51,6 +53,8 @@ namespace TestAppWebapiCore
             //var configuration = services.AddApplicationInsightsTelemetryProcessor(typeof(MyTelemetryProcessor));
 
             //var dep = app.ApplicationService s.GetService<DependencyTrackingTelemetryModule>()
+
+            services.AddApplicationInsightsTelemetry("ikeypassedasrg");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -15,10 +15,11 @@ namespace TestAppWebapiCore.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            //var ikey = TelemetryConfiguration.Active.TelemetryInitializers.Add(; 
+            var ikey = TelemetryConfiguration.Active.InstrumentationKey;
+            var ep = TelemetryConfiguration.Active.TelemetryChannel.EndpointAddress;
             HttpClient client = new HttpClient();
-            var res = client.GetStringAsync("http://bing.com").Result;
-            return new string[] { "value1", "value2", res };
+            var res = client.GetStringAsync("https://bing.com").Result;
+            return new string[] { "value1", "value2", ikey, ep };
         }
 
         // GET api/values/5

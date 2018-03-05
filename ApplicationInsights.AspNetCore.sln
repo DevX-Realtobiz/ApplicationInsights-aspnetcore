@@ -52,7 +52,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "e2eapps", "e2eapps", "{87AB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppWebapiCore", "e2eapps\TestAppWebapiCore\TestAppWebapiCore.csproj", "{725D98F8-4FDA-4FA2-86D8-009B58D723F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppMVCCore", "e2eapps\TestAppMVCCore\TestAppMVCCore.csproj", "{E94BC9BE-A7E7-4D25-8BE9-313793594AEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppMVCCore", "e2eapps\TestAppMVCCore\TestAppMVCCore.csproj", "{E94BC9BE-A7E7-4D25-8BE9-313793594AEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppReduxCore", "e2eapps\TestAppReduxCore\TestAppReduxCore.csproj", "{C7112AB3-B002-45AB-980E-8AC963537194}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,6 +114,10 @@ Global
 		{E94BC9BE-A7E7-4D25-8BE9-313793594AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E94BC9BE-A7E7-4D25-8BE9-313793594AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E94BC9BE-A7E7-4D25-8BE9-313793594AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7112AB3-B002-45AB-980E-8AC963537194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7112AB3-B002-45AB-980E-8AC963537194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7112AB3-B002-45AB-980E-8AC963537194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7112AB3-B002-45AB-980E-8AC963537194}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,6 +137,7 @@ Global
 		{9DA7024F-216F-4FA5-9B6D-CE4216C2DD72} = {8B5230E5-8138-44D6-839F-DF9248F195EE}
 		{725D98F8-4FDA-4FA2-86D8-009B58D723F1} = {87ABD823-875D-42C4-9AD4-79C882FA9378}
 		{E94BC9BE-A7E7-4D25-8BE9-313793594AEC} = {87ABD823-875D-42C4-9AD4-79C882FA9378}
+		{C7112AB3-B002-45AB-980E-8AC963537194} = {87ABD823-875D-42C4-9AD4-79C882FA9378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {047855A4-470F-43B1-8B74-69651DD6B8A6}
