@@ -129,7 +129,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (!IsApplicationInsightsAdded(services))
             {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+                services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
                 services.AddSingleton<ITelemetryInitializer, AzureWebAppRoleEnvironmentTelemetryInitializer>();
                 services.AddSingleton<ITelemetryInitializer, DomainNameRoleInstanceTelemetryInitializer>();
