@@ -7,20 +7,21 @@
     /// <summary>
     /// A generic factory for telemetry processors of a given type.
     /// </summary>
-    internal class TelemetryProcessorFactory : ITelemetryProcessorFactory
+    internal class TelemetryModuleConfigurator<T> : ITelemetryModuleConfigurator<T>
     {
-        private readonly IServiceProvider serviceProvider;
-        private readonly Type telemetryProcessorType;
-
+        private Action<T> configure;
         /// <summary>
         /// Constructs an instance of the factory.
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
         /// <param name="telemetryProcessorType">The type of telemetry processor to create.</param>
-        public TelemetryProcessorFactory(IServiceProvider serviceProvider, Type telemetryProcessorType)
+        public TelemetryModuleConfigurator(Action<T> configure)
         {
-            this.serviceProvider = serviceProvider;
-            this.telemetryProcessorType = telemetryProcessorType;
+            this.configure = configure;
+        }
+
+        public TelemetryModuleConfigurator()
+        {            
         }
 
         /// <summary>
@@ -28,9 +29,11 @@
         /// next <see cref="ITelemetryProcessor"/> in the call chain to
         /// its constructor.
         /// </summary>
-        public ITelemetryProcessor Create(ITelemetryProcessor next)
-        {            
-            return (ITelemetryProcessor)ActivatorUtilities.CreateInstance(this.serviceProvider, this.telemetryProcessorType, next);
+        public void Configure(T module)
+        {
+            if (this.configure!=null)
+            { this.configure(module);
+            }
         }
     }
 }

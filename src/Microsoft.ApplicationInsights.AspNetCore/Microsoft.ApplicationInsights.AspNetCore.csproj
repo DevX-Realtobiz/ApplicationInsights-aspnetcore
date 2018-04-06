@@ -72,10 +72,10 @@
     <PackageReference Include="System.Threading.Tasks.Analyzers" Version="1.2.0-beta2">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.5.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector" Version="2.5.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.PerfCounterCollector" Version="2.5.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.5.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.6.0-beta2-build14587" />
+    <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector" Version="Microsoft.ApplicationInsights.DependencyCollector.2.6.0-beta2-build14583" />
+    <PackageReference Include="Microsoft.ApplicationInsights.PerfCounterCollector" Version="Microsoft.ApplicationInsights.PerfCounterCollector.2.6.0-beta2-build14591" />
+    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.6.0-beta2-build14587" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' OR '$(TargetFramework)' == 'net46' ">

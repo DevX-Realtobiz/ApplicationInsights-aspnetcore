@@ -10,6 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
     using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
     using Microsoft.Extensions.Options;
+    using Microsoft.ApplicationInsights.DependencyCollector;
 
     /// <summary>
     /// Initializes TelemetryConfiguration based on values in <see cref="ApplicationInsightsServiceOptions"/>
@@ -22,6 +23,8 @@ namespace Microsoft.Extensions.DependencyInjection
         private readonly IEnumerable<ITelemetryModule> modules;
         private readonly ITelemetryChannel telemetryChannel;
         private readonly IEnumerable<ITelemetryProcessorFactory> telemetryProcessorFactories;
+        //private readonly IEnumerable<ITelemetryModuleConfigurator<ITelemetryModule>> telemetryModuleConfigurators;
+        private readonly IEnumerable<ITelemetryModuleConfigurator2> telemetryModuleConfigurators;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TelemetryConfigurationOptionsSetup"/> class.
@@ -31,13 +34,20 @@ namespace Microsoft.Extensions.DependencyInjection
             IOptions<ApplicationInsightsServiceOptions> applicationInsightsServiceOptions,
             IEnumerable<ITelemetryInitializer> initializers,
             IEnumerable<ITelemetryModule> modules,
-            IEnumerable<ITelemetryProcessorFactory> telemetryProcessorFactories)
+            IEnumerable<ITelemetryProcessorFactory> telemetryProcessorFactories,
+            IEnumerable<ITelemetryModuleConfigurator2> telemetryModuleConfigurators)
         {
             this.applicationInsightsServiceOptions = applicationInsightsServiceOptions.Value;
             this.initializers = initializers;
             this.modules = modules;
             this.telemetryProcessorFactories = telemetryProcessorFactories;
+            this.telemetryModuleConfigurators = telemetryModuleConfigurators;
             this.telemetryChannel = serviceProvider.GetService<ITelemetryChannel>();
+
+            //var ss1 = serviceProvider.GetService<ITelemetryModuleConfigurator<DependencyTrackingTelemetryModule>>();
+            //var s2 = serviceProvider.GetService(typeof(ITelemetryModuleConfigurator<DependencyTrackingTelemetryModule>));
+
+
         }
 
         /// <inheritdoc />
@@ -46,6 +56,19 @@ namespace Microsoft.Extensions.DependencyInjection
             if (this.applicationInsightsServiceOptions.InstrumentationKey != null)
             {
                 configuration.InstrumentationKey = this.applicationInsightsServiceOptions.InstrumentationKey;
+            }
+
+
+            if (this.telemetryModuleConfigurators.Any())
+            {
+                foreach (ITelemetryModuleConfigurator2 telemetryModuleConfigurator in this.telemetryModuleConfigurators)
+                {
+                    foreach (ITelemetryModule module in this.modules)
+                    {                        
+                        telemetryModuleConfigurator.Configure(module);
+                    }
+                    
+                }                
             }
 
             if (this.telemetryProcessorFactories.Any())

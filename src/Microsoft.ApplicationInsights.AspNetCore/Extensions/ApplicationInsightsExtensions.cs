@@ -140,6 +140,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<ITelemetryInitializer, WebUserTelemetryInitializer>();
                 services.AddSingleton<ITelemetryInitializer, AspNetCoreEnvironmentTelemetryInitializer>();
                 services.AddSingleton<ITelemetryInitializer, HttpDependenciesParsingTelemetryInitializer>();
+
+                /*
                 services.AddSingleton<ITelemetryModule, DependencyTrackingTelemetryModule>(provider => {
                     var module = new DependencyTrackingTelemetryModule();
                     var excludedDomains = module.ExcludeComponentCorrelationHttpHeadersOnDomains;
@@ -156,6 +158,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
                     return module;
                 });
+                */
+                services.AddSingleton<ITelemetryModule, DependencyTrackingTelemetryModule>();
 
 #if NET451 || NET46
                 services.AddSingleton<ITelemetryModule, PerformanceCollectorModule>();
@@ -188,7 +192,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Adds an Application Insights Telemetry Processor into a service collection via a <see cref="ITelemetryProcessorFactory"/>.
         /// </summary>
-        /// <typeparam name="T">Type of the telemetry processor to add.</typeparam>
+        /// <typeparam name="T">Type of the telemetry module to configured.</typeparam>
         /// <param name="services">The <see cref="IServiceCollection"/> instance.</param>
         /// <returns>
         /// The <see cref="IServiceCollection"/>.
@@ -197,6 +201,19 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return services.AddSingleton<ITelemetryProcessorFactory>(serviceProvider => new TelemetryProcessorFactory(serviceProvider, typeof(T)));
         }
+
+        public static IServiceCollection ConfigureTelemetryModule<T>(this IServiceCollection services, Action<T> config) //where T : ITelemetryModule
+        {
+            //return services.AddSingleton(typeof(ITelemetryModuleConfigurator<>), typeof(TelemetryModuleConfigurator<>));            
+            //return services.AddSingleton(typeof(ITelemetryModuleConfigurator<>), (new TelemetryModuleConfigurator<T>(config)) );
+
+            //return services.AddSingleton<ITelemetryModuleConfigurator2>(serviceProvider => new TelemetryModuleConfigurator2(config));
+
+            //return services.AddSingleton<ITelemetryModuleConfigurator2>(serviceProvider => new TelemetryModuleConfigurator2(config2 => config((T) config2)));
+
+            return services.AddSingleton(typeof(ITelemetryModuleConfigurator2), (new TelemetryModuleConfigurator2(config2 => config((T) config2))));
+        }
+
 
         /// <summary>
         /// Adds an Application Insights Telemetry Processor into a service collection via a <see cref="ITelemetryProcessorFactory"/>.
